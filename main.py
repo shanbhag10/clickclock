@@ -7,6 +7,7 @@ from visualization.visualization_helper import refresh_graphs
 if __name__ == "__main__":
     # start with a default window
     current_window = "unknown"
+    change = False
     start_time = datetime.datetime.now()
     i = 0
     timer = 0
@@ -29,13 +30,15 @@ if __name__ == "__main__":
 
             current_window = new_window
             start_time = new_start_time
+            change = True
 
         time.sleep(1)
         timer += 1
 
-        if timer >= 10:
+        if timer >= 10 and change:
             refresh_graphs(db_context)
             timer = 0
+            change = False
 
 
 

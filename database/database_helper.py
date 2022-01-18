@@ -37,9 +37,9 @@ class DataBaseContext:
 
         return all_events
 
-    def get_app_times(self):
+    def get_app_times(self, limit):
         cursor = self.connection.execute("SELECT window, SUM(duration) as total_duration from " + table_name +
-                                         " group by window order by total_duration desc")
+                                         " group by window order by total_duration desc limit " + str(limit))
         app_times = {}
         for row in cursor:
             app_times[row[0]] = row[1]

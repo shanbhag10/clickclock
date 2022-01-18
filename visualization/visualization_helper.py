@@ -1,13 +1,19 @@
 import matplotlib.pyplot as plt
-import itertools
 
 
 def get_histogram(db_context):
-    app_times = db_context.get_app_times()
+    app_times = db_context.get_app_times(5)
+    keys = list(app_times.keys())
+    for i in range(len(keys)):
+        keys[i] = keys[i].replace(" ", "\n")
 
-    top_5_apps = dict(itertools.islice(app_times.items(), 5))
+    print(app_times)
+    plt.bar(range(len(keys)), app_times.values(), color='#009be9')
 
-    plt.bar(list(top_5_apps.keys()), top_5_apps.values(), color='cyan', linewidth='5')
+    plt.title("Top 5 Apps")
+    plt.ylabel("Active Time in seconds")
+    plt.xticks(range(len(keys)), keys)
+
     plt.savefig('visualization/histogram.png')
 
 
